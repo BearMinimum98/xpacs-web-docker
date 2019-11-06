@@ -89,11 +89,7 @@ RUN apt-get update     && apt-get install -y --no-install-recommends openjfx    
 # Update PATH for Java tools
 ENV PATH="/opt/sbt/bin:/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
 
-RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ --no-cache \
-  nodejs \
-  nodejs-npm \
-  yarn \
-  curl
+RUN sudo apt install nodejs
 
 # smoke test with path
 RUN mvn -version \
