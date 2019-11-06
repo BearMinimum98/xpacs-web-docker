@@ -89,7 +89,8 @@ RUN apt-get update     && apt-get install -y --no-install-recommends openjfx    
 # Update PATH for Java tools
 ENV PATH="/opt/sbt/bin:/opt/apache-maven/bin:/opt/apache-ant/bin:/opt/gradle/bin:$PATH"
 
-RUN sudo apt install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+RUN sudo apt install -y nodejs
 
 # smoke test with path
 RUN mvn -version \
