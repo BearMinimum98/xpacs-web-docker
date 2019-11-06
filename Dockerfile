@@ -99,7 +99,7 @@ RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ --no-ca
 RUN mvn -version \
   && ant -version \
   && gradle -version \
-  && sbt sbtVersion
+  && sbt sbtVersion \
   && npm -v
 # END IMAGE CUSTOMIZATIONS
 
