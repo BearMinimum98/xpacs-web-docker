@@ -98,6 +98,13 @@ RUN mvn -version \
   && gradle -version \
   && sbt sbtVersion \
   && npm -v
+
+RUN sudo apt-get install libdbus-glib-1-2 \
+  && wget -O FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US" \
+  && sudo tar xjf FirefoxSetup.tar.bz2 \
+  && sudo mv firefox /opt \
+  && sudo ln -s /opt/firefox/firefox /usr/bin/firefox \
+  && firefox -v
 # END IMAGE CUSTOMIZATIONS
 
 ENV MYSQL_ALLOW_EMPTY_PASSWORD=true \
@@ -107,16 +114,6 @@ ENV MYSQL_ALLOW_EMPTY_PASSWORD=true \
     MYSQL_USER=root
 
 RUN sudo apt install mysql-server
-
-# This is the performance optimization tweak to make DB faster
-RUN echo '\n\
-[mysqld]\n\
-collation-server = utf8_unicode_ci\n\
-init-connect="SET NAMES utf8"\n\
-character-set-server = utf8\n\
-innodb_flush_log_at_trx_commit=2\n\
-sync_binlog=0\n\
-innodb_use_native_aio=0\n' >> /etc/mysql/my.cnf
 
 USER circleci
 ENV PATH /home/circleci/.local/bin:/home/circleci/bin:${PATH}
